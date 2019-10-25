@@ -1,0 +1,27 @@
+.slot-container {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    position: absolute;
+    content: '';
+    display: block;
+    height: 141px;
+    top: 45%;
+    transform: translateY(-45%);
+    right: 0px;
+    left: 0px;
+    background: rgba(255, 0, 0, .1);
+  }
+}
+
+.reel {
+  padding: 0 1rem;
+  width: 146px;
+  height: 423px;
+  margin: -64px 0;
+  background: url("../img/symbols.svg") repeat-y;
+  will-change: backgroundPosition;
+  transition: 0.3s background-position ease-in-out;
+}

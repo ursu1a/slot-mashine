@@ -1,0 +1,42 @@
+[
+  {
+    "title": "3xBAR",
+    "payouts": {
+      "top": 50,
+      "center": 50,
+      "bottom": 50
+    }
+  },
+  {
+    "title": "BAR",
+    "payouts": {
+      "top": 10,
+      "center": 10,
+      "bottom": 10
+    }
+  },
+  {
+    "title": "2XBAR",
+    "payouts": {
+      "top": 20,
+      "center": 20,
+      "bottom": 20
+    }
+  },
+  {
+    "title": "7",
+    "payouts": {
+      "top": 150,
+      "center": 150,
+      "bottom": 150
+    }
+  },
+  {
+    "title": "CHERRY",
+    "payouts": {
+      "top": 2000,
+      "center": 1000,
+      "bottom": 4000
+    }
+  }
+]
