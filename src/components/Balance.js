@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import TextField from '@material-ui/core/TextField';
 import * as payouts from '../constants/payTable.json';
 
 const payTable = payouts.default;
@@ -69,7 +70,13 @@ export default class Balance extends Component {
       const {updating}=this.props;
       return (
          <div className="balance">
-            <input value={updating ? "--" : balance}/>
+            <TextField
+               label=""
+               type="text"
+               margin="normal"
+               variant="outlined"
+               value={updating ? "--" : balance}
+            />
          </div>
       )
    }

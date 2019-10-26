@@ -16,11 +16,24 @@
   }
 }
 
+.debug-container {
+  display: flex;
+
+  .debug-fields {
+    display: flex;
+
+    .col {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
 .reel {
   padding: 0 1rem;
   width: 146px;
   height: 423px;
-  margin: -64px 0;
+  //margin: -64px 0;
   background: url("../img/symbols.svg") repeat-y;
   will-change: backgroundPosition;
   transition: 0.3s background-position ease-in-out;

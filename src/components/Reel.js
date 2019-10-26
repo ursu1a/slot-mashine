@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {SYMBOLS} from "../constants/index";
 
 export default class Reel extends Component {
    render() {

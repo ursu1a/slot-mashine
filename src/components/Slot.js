@@ -24,6 +24,12 @@ export default class Slot extends Component {
       if (this.props.isSpinning && !prevProps.isSpinning) {
          this.doSpinReels(this.props.onStopSpin);
       }
+
+      if (this.props.isDebugMode && JSON.stringify(this.props.backgroundShifts) !== JSON.stringify(prevProps.backgroundShifts)) {
+         let currentPositions = this.getPositionsByShifts();
+         let winInfo = this.getWinInfo(currentPositions);
+         this.props.onStopSpin(winInfo);
+      }
    }
 
    spinReel = (index) => {
@@ -55,18 +61,31 @@ export default class Slot extends Component {
          setTimeout(() => {
             clearInterval(this.timer);
             this.updatePositionsCascade();
-            callback(this.getWinInfo(), this.state.spinsCount);
+            callback(this.getWinInfo(this.state.currentPositions), this.state.spinsCount);
          }, 2000);
       });
    };
 
-   getWinInfo() {
-      const {currentPositions} = this.state;
+   getWinInfo(positions) {
       return ({
-         top: currentPositions.map(item => item[0]),
-         center: currentPositions.map(item => item[1]),
-         bottom: currentPositions.map(item => item[2])
+         top: positions.map(item => item[0]),
+         center: positions.map(item => item[1]),
+         bottom: positions.map(item => item[2])
       });
+   }
+
+   getPositionsByShifts() {
+      const {backgroundShifts}=this.props;
+      const reelPositions = [0,1,2,3,4];
+      let positions = [];
+
+      for(let i=0; i<backgroundShifts.length; i++) {
+         let reelShift = backgroundShifts[i];
+         let newReelPositions = reelPositions.slice(reelShift);
+         newReelPositions = newReelPositions.concat(reelPositions.slice(0, reelShift));
+         positions[i] = newReelPositions;
+      }
+      return positions;
    }
 
    updatePositionsCascade() {
@@ -92,13 +111,13 @@ export default class Slot extends Component {
 
    render() {
       const {currentPositions, positions} = this.state;
-      const {isSpinning}=this.props;
+      const {isSpinning, isDebugMode, backgroundShifts}=this.props;
       let shownPositions = isSpinning ? currentPositions : positions;
       return (
          <div className="slot-container">
             {Array.from([0,1,2]).map((idx) => (
                <Reel key={idx} idx={idx}
-                     backgroundShift={shownPositions[idx][0]}/>
+                     backgroundShift={!isDebugMode ? shownPositions[idx][0] : backgroundShifts[idx]}/>
             ))}
          </div>
       )
