@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import TextField from "@material-ui/core/TextField";
 import MenuItem from '@material-ui/core/MenuItem';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Button from '@material-ui/core/Button';
-// import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Fab from '@material-ui/core/Fab';
+import ReplayIcon from '@material-ui/icons/Replay';
 import {SYMBOLS} from "../constants/index";
 
 export default class Debug extends Component {
@@ -38,10 +38,9 @@ export default class Debug extends Component {
             positionValue = (debug[reelIdx] || {}).position;
          return (
             <div className="col">
-               <div>{`Reel #${reelIdx+1}`}</div>
+               <div className="col-header">{`Reel #${reelIdx + 1}`}</div>
                <TextField
                   select
-                  className=""
                   value={symbolValue !== undefined ? symbolValue : ""}
                   onChange={this.handleChange(reelIdx, true)}
                   InputProps={{
@@ -56,7 +55,6 @@ export default class Debug extends Component {
                </TextField>
                <TextField
                   select
-                  className=""
                   value={positionValue !== undefined ? positionValue : ""}
                   onChange={this.handleChange(reelIdx, false)}
                   InputProps={{
@@ -81,14 +79,9 @@ export default class Debug extends Component {
                {getInputParameters(2)}
             </div>
             <div className="debug-actions">
-               <Button
-                  variant="contained"
-                  color="default"
-                  // startIcon={<CloudUploadIcon />}
-                  onClick={this.doApply}
-               >
-                  Apply
-               </Button>
+               <Fab color="secondary" onClick={this.doApply} disabled={debug.length!==3}>
+                  <ReplayIcon/>
+               </Fab>
             </div>
          </div>
       )

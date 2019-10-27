@@ -1,0 +1,59 @@
+.slot-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(#ffffff, #878787);
+  padding: 0 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px gray;
+  border: 5px solid #1c1c1c;
+  border-left: none;
+  border-right: none;
+
+  &::after {
+    position: absolute;
+    content: '';
+    display: block;
+    height: 141px;
+    top: 45%;
+    transform: translateY(-45%);
+    right: 0px;
+    left: 0px;
+    z-index: 1;
+    background: rgba(0, 0, 0, .1);
+  }
+}
+
+.reel-container {
+  display: flex;
+  align-items: center;
+  margin: -55px 10px;
+
+  .reel {
+    width: 141px;
+    height: 423px;
+    background: #ffffff url("../img/symbols.svg") repeat-y;
+    will-change: backgroundPosition;
+    transition: 0.3s background-position ease-in-out;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .slot-container {
+    padding: 0 5px;
+    &:after {
+      height: calc(2 * 141px / 3);
+    }
+  }
+
+  .reel-container {
+    margin: calc(-2 * 55px / 3) 5px;
+
+    .reel {
+      width: calc(2 * 141px / 3);
+      height: calc(2 * 423px / 3);
+      background-size: 100%;
+    }
+  }
+}

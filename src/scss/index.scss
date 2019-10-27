@@ -1,40 +1,93 @@
-.slot-container {
-  display: flex;
-  position: relative;
-  overflow: hidden;
+@import "debug";
+@import "slot";
+@import "balance";
 
-  &::after {
-    position: absolute;
-    content: '';
-    display: block;
-    height: 141px;
-    top: 45%;
-    transform: translateY(-45%);
-    right: 0px;
-    left: 0px;
-    background: rgba(255, 0, 0, .1);
+.slot-machine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  background: linear-gradient(#949494, #474747);
+  border-radius: 5px;
+  padding: 0 !important;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    margin: 15px;
+    padding: 20px;
+    background-color: #dadada;
   }
 }
 
-.debug-container {
-  display: flex;
-
-  .debug-fields {
-    display: flex;
-
-    .col {
-      display: flex;
-      flex-direction: column;
+@media only screen and (max-width: 768px) {
+  .slot-machine {
+    .content {
+      padding: 10px;
     }
   }
 }
 
-.reel {
-  padding: 0 1rem;
-  width: 146px;
-  height: 423px;
-  //margin: -64px 0;
-  background: url("../img/symbols.svg") repeat-y;
-  will-change: backgroundPosition;
-  transition: 0.3s background-position ease-in-out;
+.row {
+  display: flex;
+  padding: 5px 0;
+  width: 100%;
+
+  &.debug {
+    justify-content: flex-end;
+    padding-bottom: 10px;
+
+    span {
+      font-size: 13px;
+    }
+  }
+
+  &.label, &.slot {
+    justify-content: center;
+  }
+
+  &.slot {
+    padding-top: 15px;
+  }
+
+  &.label {
+    align-items: center;
+    line-height: 2rem;
+    box-shadow: 0 0 5px gray;
+    margin-bottom: 5px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #878787;
+
+    .title {
+      font-size: 18px;
+    }
+
+    small {
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+  }
+
+  &.controls {
+    align-items: center;
+    justify-content: space-between;
+
+    > * {
+      margin: 0 15px;
+    }
+  }
+}
+
+.spin-button {
+  display: flex;
+  flex-grow: 1;
+
+  .spin-icon {
+    font-size: 32px;
+    margin-right: 5px;
+  }
 }

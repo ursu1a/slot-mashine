@@ -1,0 +1,48 @@
+.debug-container {
+  display: flex;
+  align-items: flex-start;
+  flex-grow: 1;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 2px;
+  box-shadow: 0 0 3px gray;
+  padding: 30px 15px;
+  margin-top: 20px;
+
+  .debug-fields {
+    display: flex;
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      margin-right: 15px;
+
+      .col-header {
+        font-size: 18px;
+        font-weight: 500;
+        padding-left: 5px;
+        color: #474747;
+        border-bottom: 2px solid #474747;
+        padding-bottom: 3px;
+        margin-bottom: 3px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .debug-container {
+    flex-direction: column;
+    align-items: center;
+
+    .debug-fields {
+      flex-direction: column;
+      width: 100%;
+
+      .col {
+        margin-right: 0;
+        margin-bottom: 25px;
+      }
+    }
+  }
+}

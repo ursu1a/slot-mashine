@@ -2,30 +2,27 @@ import React, {Component} from 'react';
 import Reel from "./Reel";
 import {SYMBOLS} from "../constants/index";
 
+const DEFAULT_POSITIONS = [
+   [0,1,2,3,4],
+   [0,1,2,3,4],
+   [0,1,2,3,4]
+];
+
 export default class Slot extends Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         positions: [
-            [0,1,2,3,4],
-            [0,1,2,3,4],
-            [0,1,2,3,4]
-         ],
-         currentPositions: [
-            [0,1,2,3,4],
-            [0,1,2,3,4],
-            [0,1,2,3,4]
-         ],
-         spinsCount: 0
-      };
-   }
+   state = {
+      positions: DEFAULT_POSITIONS,
+      currentPositions: DEFAULT_POSITIONS,
+      spinsCount: 0
+   };
 
    componentDidUpdate(prevProps) {
       if (this.props.isSpinning && !prevProps.isSpinning) {
          this.doSpinReels(this.props.onStopSpin);
       }
 
-      if (this.props.isDebugMode && JSON.stringify(this.props.backgroundShifts) !== JSON.stringify(prevProps.backgroundShifts)) {
+      if (this.props.isDebugMode && this.props.backgroundShifts.length === 3
+         && JSON.stringify(this.props.backgroundShifts) !== JSON.stringify(prevProps.backgroundShifts))
+      {
          let currentPositions = this.getPositionsByShifts();
          let winInfo = this.getWinInfo(currentPositions);
          this.props.onStopSpin(winInfo);
@@ -62,7 +59,7 @@ export default class Slot extends Component {
             clearInterval(this.timer);
             this.updatePositionsCascade();
             callback(this.getWinInfo(this.state.currentPositions), this.state.spinsCount);
-         }, 2000);
+         }, 3000);
       });
    };
 

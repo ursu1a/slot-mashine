@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import * as payouts from '../constants/payTable.json';
 
 const payTable = payouts.default;
@@ -67,16 +69,20 @@ export default class Balance extends Component {
 
    render() {
       const {balance}=this.state;
-      const {updating}=this.props;
+      const {updating, isWinner}=this.props;
       return (
          <div className="balance">
-            <TextField
-               label=""
-               type="text"
-               margin="normal"
-               variant="outlined"
-               value={updating ? "--" : balance}
-            />
+            <FormControl variant="outlined">
+               <InputLabel htmlFor="component-outlined">
+                  Balance
+               </InputLabel>
+               <OutlinedInput
+                  id="component-outlined"
+                  className={"balance-field " + (isWinner ? 'with-blink' : '')}
+                  value={updating ? "--" : balance}
+                  labelWidth={60}
+               />
+            </FormControl>
          </div>
       )
    }

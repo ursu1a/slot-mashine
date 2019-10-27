@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
+import Container from '@material-ui/core/Container';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Slot from "./Slot";
 import Debug from "./Debug";
-import Controls from "./Controls";
 import Balance from "./Balance";
-import SpinButton from "./SpinButton";
+import {SpinButton} from "./SpinButton";
 
 export default class App extends Component {
    state = {
@@ -46,11 +46,8 @@ export default class App extends Component {
    getWinnerLabel() {
       const {isSpinning, isWinner} = this.state;
       return (
-         isWinner !== undefined ?
-            !isSpinning ? (
-               isWinner ? 'Winner' : 'Looser'
-            ) : '...'
-            : ''
+         !isSpinning ? (isWinner ? 'Winner !' : 'Loser ((')
+            : 'Please wait...'
       );
    }
 
@@ -61,33 +58,44 @@ export default class App extends Component {
    switchMode = () => {
       const {mode} = this.state;
       this.setState({
-         mode: mode === 'debug' ? 'random' : 'debug'
+         mode: mode === 'debug' ? 'random' : 'debug',
+         isWinner: undefined,
+         backgroundShifts: []
       });
    };
 
    render() {
-      const {isSpinning, winLines, mode, backgroundShifts}=this.state;
+      const {isSpinning, winLines, mode, backgroundShifts, isWinner} = this.state;
       return (
-         <div className="app">
-            <div className="row">{this.getWinnerLabel()}</div>
-            <div className="row">
-               <Slot isSpinning={isSpinning} isDebugMode={mode==='debug'} backgroundShifts={backgroundShifts} onStopSpin={this.updateWinInfo}/>
-               {this.isDebugMode() &&
-               <Debug onApply={this.updateBackgroundShifts}/>}
-            </div>
-            <div className="row">
-               <Controls>
-                  <Balance updating={isSpinning} winLines={winLines}/>
-                  {!this.isDebugMode() && <SpinButton onClick={this.onSpinButtonClick}/>}
+         <Container maxWidth="sm" className="slot-machine">
+            <div className="content">
+               <div className="row label">
+                  {isWinner !== undefined ? <div className="title">{this.getWinnerLabel()}</div> :
+                     <small>try your fortune !</small>}
+               </div>
+               <div className="row slot">
+                  <Slot isSpinning={isSpinning} isDebugMode={mode === 'debug'} backgroundShifts={backgroundShifts}
+                        onStopSpin={this.updateWinInfo}/>
+               </div>
+               <div className="row debug">
                   <FormControlLabel
                      control={
-                        <Switch checked={this.isDebugMode()} value={mode} onChange={this.switchMode}/>
+                        <Switch checked={this.isDebugMode()} value={mode} color="secondary" onChange={this.switchMode}/>
                      }
                      label="Debug"
                   />
-               </Controls>
+               </div>
+               <div className="row controls">
+                  <Balance updating={isSpinning} winLines={winLines} isWinner={isWinner}/>
+                  <SpinButton disabled={this.isDebugMode()} onClick={this.onSpinButtonClick}/>
+               </div>
+               <div className="row">
+                  {this.isDebugMode() &&
+                  <Debug onApply={this.updateBackgroundShifts}/>
+                  }
+               </div>
             </div>
-         </div>
+         </Container>
       );
    }
 }
