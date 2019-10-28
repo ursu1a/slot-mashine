@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import TextField from "@material-ui/core/TextField";
 import MenuItem from '@material-ui/core/MenuItem';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -7,6 +8,10 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import {SYMBOLS} from "../constants/index";
 
 export default class Debug extends Component {
+   static propTypes = {
+      onApply: PropTypes.func
+   };
+
    state = {
       debug: []
    };
@@ -36,8 +41,9 @@ export default class Debug extends Component {
          let
             symbolValue = (debug[reelIdx] || {}).symbol,
             positionValue = (debug[reelIdx] || {}).position;
+
          return (
-            <div className="col">
+            <div key={reelIdx} className="col">
                <div className="col-header">{`Reel #${reelIdx + 1}`}</div>
                <TextField
                   select
@@ -74,12 +80,12 @@ export default class Debug extends Component {
       return (
          <div className="debug-container">
             <div className="debug-fields">
-               {getInputParameters(0)}
-               {getInputParameters(1)}
-               {getInputParameters(2)}
+               {Array.from([0, 1, 2]).map(
+                  idx => getInputParameters(idx)
+               )}
             </div>
             <div className="debug-actions">
-               <Fab color="secondary" onClick={this.doApply} disabled={debug.length!==3}>
+               <Fab color="secondary" onClick={this.doApply} disabled={debug.length !== 3}>
                   <ReplayIcon/>
                </Fab>
             </div>

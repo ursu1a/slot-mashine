@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -7,6 +8,16 @@ import * as payouts from '../constants/payTable.json';
 const payTable = payouts.default;
 
 export default class Balance extends Component {
+   static propTypes = {
+      updating: PropTypes.bool,
+      isWinner: PropTypes.bool,
+      winLines: PropTypes.shape({
+         top: PropTypes.arrayOf(PropTypes.number),
+         center: PropTypes.arrayOf(PropTypes.number),
+         bottom: PropTypes.arrayOf(PropTypes.number)
+      })
+   };
+
    state = {
       winLines: null,
       balance: 0
@@ -34,7 +45,6 @@ export default class Balance extends Component {
       const cherrySevenWin = 75;
       const barsIds=[0,1,2];
       const barsWin = 5;
-
       let result = 0;
 
       const cherrySevenCheck = (arr, target) => target.every(v => arr.includes(v));
@@ -62,14 +72,12 @@ export default class Balance extends Component {
       };
 
 
-      this.setState({
-         balance: result
-      });
+      this.setState({balance: result});
    }
 
    render() {
-      const {balance}=this.state;
-      const {updating, isWinner}=this.props;
+      const {balance} = this.state;
+      const {updating, isWinner} = this.props;
       return (
          <div className="balance">
             <FormControl variant="outlined">

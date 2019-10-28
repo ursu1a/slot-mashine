@@ -22,7 +22,10 @@ export default class App extends Component {
    };
 
    onSpinButtonClick = () => {
-      this.setState({isSpinning:true, spentCoins:0});
+      this.setState({
+         isSpinning:true,
+         spentCoins:0
+      });
    };
 
    updateWinInfo = (winInfo, spinsCount=0) => {
@@ -69,28 +72,42 @@ export default class App extends Component {
          <Container maxWidth="sm" className="slot-machine">
             <div className="content">
                <div className="row label">
-                  {isWinner !== undefined ? <div className="title">{this.getWinnerLabel()}</div> :
-                     <small>try your fortune !</small>}
+                  {isWinner !== undefined ?
+                     <div className="title">{this.getWinnerLabel()}</div>
+                     : <small>try your fortune !</small>
+                  }
                </div>
                <div className="row slot">
-                  <Slot isSpinning={isSpinning} isDebugMode={mode === 'debug'} backgroundShifts={backgroundShifts}
-                        onStopSpin={this.updateWinInfo}/>
+                  <Slot isSpinning={isSpinning}
+                        isDebugMode={mode === 'debug'}
+                        backgroundShifts={backgroundShifts}
+                        onStopSpin={this.updateWinInfo}
+                  />
                </div>
                <div className="row debug">
                   <FormControlLabel
-                     control={
-                        <Switch checked={this.isDebugMode()} value={mode} color="secondary" onChange={this.switchMode}/>
-                     }
                      label="Debug"
+                     control={
+                        <Switch
+                           checked={this.isDebugMode()}
+                           disabled={isSpinning} value={mode}
+                           color="secondary" onChange={this.switchMode}
+                        />
+                     }
                   />
                </div>
                <div className="row controls">
-                  <Balance updating={isSpinning} winLines={winLines} isWinner={isWinner}/>
-                  <SpinButton disabled={this.isDebugMode()} onClick={this.onSpinButtonClick}/>
+                  <Balance
+                     updating={isSpinning} winLines={winLines} isWinner={isWinner}
+                  />
+                  <SpinButton
+                     disabled={isSpinning || this.isDebugMode()}
+                     onClick={this.onSpinButtonClick}
+                  />
                </div>
                <div className="row">
                   {this.isDebugMode() &&
-                  <Debug onApply={this.updateBackgroundShifts}/>
+                     <Debug onApply={this.updateBackgroundShifts} />
                   }
                </div>
             </div>

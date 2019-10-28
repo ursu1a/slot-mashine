@@ -1,8 +1,16 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Reel from "./Reel";
 import {SYMBOLS} from "../constants/index";
 
 export default class Slot extends Component {
+   static propTypes = {
+      isSpinning: PropTypes.bool,
+      isDebugMode: PropTypes.bool,
+      backgroundShifts: PropTypes.arrayOf(PropTypes.number),
+      onStopSpin: PropTypes.func
+   };
+
    state = {
       positions: [
          [0,1,2,3,4],
@@ -97,7 +105,7 @@ export default class Slot extends Component {
             this.setState({
                positions: newPositions
             }, () => {
-               setTimeout(() => resolve(slotNumber), 300);
+               setTimeout(() => resolve(slotNumber), 500);
             });
          });
       };
