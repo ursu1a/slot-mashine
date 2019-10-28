@@ -1,4 +1,4 @@
-##Slot machine simulation web-app.
+## Slot machine simulation web-app.
 
 Slot machine page has following interface elements: 
 1. reels 
