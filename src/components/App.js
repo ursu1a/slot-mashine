@@ -26,7 +26,6 @@ export default class App extends Component {
    };
 
    updateWinInfo = (winInfo, spinsCount=0) => {
-      console.log(winInfo);
       this.setState({
          winLines: winInfo,
          isSpinning: false,

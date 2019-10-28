@@ -32,7 +32,7 @@
 
   .reel {
     width: 141px;
-    height: 423px;
+    height: 415px;
     background: #ffffff url("../img/symbols.svg") repeat-y;
     will-change: backgroundPosition;
     transition: 0.3s background-position ease-in-out;
@@ -52,7 +52,7 @@
 
     .reel {
       width: calc(2 * 141px / 3);
-      height: calc(2 * 423px / 3);
+      height: calc(2 * 415px / 3);
       background-size: 100%;
     }
   }

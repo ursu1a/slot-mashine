@@ -2,16 +2,18 @@ import React, {Component} from 'react';
 import Reel from "./Reel";
 import {SYMBOLS} from "../constants/index";
 
-const DEFAULT_POSITIONS = [
-   [0,1,2,3,4],
-   [0,1,2,3,4],
-   [0,1,2,3,4]
-];
-
 export default class Slot extends Component {
    state = {
-      positions: DEFAULT_POSITIONS,
-      currentPositions: DEFAULT_POSITIONS,
+      positions: [
+         [0,1,2,3,4],
+         [0,1,2,3,4],
+         [0,1,2,3,4]
+      ],
+      currentPositions: [
+         [0,1,2,3,4],
+         [0,1,2,3,4],
+         [0,1,2,3,4]
+      ],
       spinsCount: 0
    };
 
@@ -95,7 +97,7 @@ export default class Slot extends Component {
             this.setState({
                positions: newPositions
             }, () => {
-               setTimeout(() => resolve(slotNumber), 500)
+               setTimeout(() => resolve(slotNumber), 300);
             });
          });
       };
